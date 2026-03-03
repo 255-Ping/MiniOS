@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://dlf1d8hisli7e"]
+
+[ext_resource type="Script" uid="uid://cp8y2b5ucacfh" path="res://Scripts/os.gd" id="1_74xdg"]
+[ext_resource type="FontFile" uid="uid://bq1oki377vxb3" path="res://Textures/Fonts/LowresPixel-Regular.otf" id="2_t7261"]
+[ext_resource type="Theme" uid="uid://dfe8rqjdehj7x" path="res://UIThemes/standard_ui_theme.tres" id="3_t7261"]
+[ext_resource type="Script" uid="uid://c886gon6un1v1" path="res://Scripts/CommandManagement/command_line_input.gd" id="4_jkw68"]
+
+[node name="OS" type="Node2D" unique_id=1146697342]
+script = ExtResource("1_74xdg")
+
+[node name="ConsoleBackground" type="Panel" parent="." unique_id=1494346071]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 639.0
+offset_bottom = 718.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ConsoleBackground" unique_id=183162363]
+layout_mode = 0
+offset_right = 629.0
+offset_bottom = 687.0
+theme_override_fonts/normal_font = ExtResource("2_t7261")
+bbcode_enabled = true
+scroll_following = true
+vertical_alignment = 2
+
+[node name="CommandLineInput" type="LineEdit" parent="ConsoleBackground" unique_id=1308758451]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 699.0
+offset_right = 2530.0
+offset_bottom = 772.0
+scale = Vector2(0.25, 0.25)
+theme = ExtResource("3_t7261")
+script = ExtResource("4_jkw68")
+
+[node name="FileSystemBackground" type="Panel" parent="." unique_id=1263207199]
+offset_left = 641.0
+offset_top = 2.0
+offset_right = 1278.0
+offset_bottom = 718.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FileSystemBackground" unique_id=1729918612]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 636.0
+offset_bottom = 715.0
+
+[node name="FileContainer" type="BoxContainer" parent="FileSystemBackground/ScrollContainer" unique_id=1138403430]
+layout_mode = 2
+vertical = true
+
+[connection signal="text_submitted" from="ConsoleBackground/CommandLineInput" to="." method="_on_line_edit_text_submitted"]

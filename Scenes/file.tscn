@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://c1737fgphkwcy"]
+
+[ext_resource type="Script" uid="uid://fajnqfqqx600" path="res://Scripts/file_node.gd" id="1_r6p7b"]
+[ext_resource type="Theme" uid="uid://dfe8rqjdehj7x" path="res://UIThemes/standard_ui_theme.tres" id="2_r6p7b"]
+
+[node name="File" type="Control" unique_id=1239664653]
+custom_minimum_size = Vector2(600, 20)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r6p7b")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=441703632]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 20.0
+color = Color(0.3779188, 0.37791887, 0.37791884, 1)
+
+[node name="Label" type="Label" parent="." unique_id=761946509]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 601.0
+offset_bottom = 67.0
+scale = Vector2(0.25, 0.25)
+theme = ExtResource("2_r6p7b")
+text = "FILE NAME"
