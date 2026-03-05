@@ -12,9 +12,15 @@ func run_command(command: String, args: Array):
 	match command:
 		
 		"help":
-			main.log_string("This is the help command.\n
-			Commands List:\n
-			help")
+			main.log_string("\n
+	Commands List:\n
+		help : List all commands\n
+		cd : Change the current directory\n
+		cdos : Open the OS data in Native File Manager\n
+		mkfile String : Makes a file\n
+		mkdir String : Makes a directory\n
+		dlfile String : Deletes a file\n
+		dldir String : Deletes a directory\n")
 		
 		"cd":
 			if !args:
@@ -51,6 +57,13 @@ func run_command(command: String, args: Array):
 				main.log_error("Incorrect arguments")
 				return
 			data.delete_file(str(execution_directory, "/", args[0]))
+			main.reload_file_manager(execution_directory)
+			
+		"dldir":
+			if !args:
+				main.log_error("Incorrect arguments")
+				return
+			data.delete_dir_recursive(str(execution_directory, "/", args[0]))
 			main.reload_file_manager(execution_directory)
 			
 		_:

@@ -6,6 +6,7 @@ var command = CommandManager.new()
 var command_line_history: Array
 
 @onready var file_node = preload("res://Scenes/file.tscn")
+@onready var folder_node = preload("res://Scenes/folder.tscn")
 
 @onready var command_line_input = $ConsoleBackground/CommandLineInput
 
@@ -73,6 +74,14 @@ func log_error(string: String):
 func reload_file_manager(directory: String):
 	for i in $FileSystemBackground/ScrollContainer/FileContainer.get_children():
 		i.queue_free()
+	
+	var dirs
+	dirs = data.get_dirs_in_dir(directory)
+	for i in dirs.size():
+		var instance = folder_node.instantiate()
+		instance.folder_name = dirs[i]
+		$FileSystemBackground/ScrollContainer/FileContainer.add_child(instance)	
+		
 	var files
 	files = data.get_files_in_dir(directory)
 	for i in files.size():

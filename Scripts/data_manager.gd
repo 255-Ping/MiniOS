@@ -3,6 +3,28 @@ class_name DataManager
 
 const SAVE_DIR := "user://MiniOS"
 
+func get_dirs_in_dir(directory: String) -> Array[String]:
+	var result: Array[String] = []
+	var dir := DirAccess.open(directory)
+	
+	if dir == null:
+		push_error("Could not open directory: " + directory)
+		return result
+
+	dir.list_dir_begin()
+	var entry = dir.get_next()
+
+	while entry != "":
+		if entry != "." and entry != "..":
+			if dir.current_is_dir():
+				var subdir_path = directory + "/" + entry
+				result.append(subdir_path)               # Add the directory itself
+				result += get_dirs_in_dir(subdir_path)   # Recurse into subdirectory
+		entry = dir.get_next()
+	
+	dir.list_dir_end()
+	return result
+
 func get_files_in_dir(directory: String) -> Array[String]:
 	var result: Array[String] = []
 	var dir := DirAccess.open(str(directory))
@@ -106,6 +128,33 @@ func delete_file(filename: String) -> bool:
 		else:
 			push_error("Failed to delete file: " + file_path)
 	return false
+	
+func delete_dir_recursive(path: String) -> void:
+	var dir := DirAccess.open(path)
+	if dir == null:
+		push_error("Could not open directory: " + path)
+		return
+	
+	dir.list_dir_begin()
+	var entry = dir.get_next()
+	
+	while entry != "":
+		if entry != "." and entry != "..":
+			var entry_path = path + "/" + entry
+			if dir.current_is_dir():
+				delete_dir_recursive(entry_path)  # Recurse into subdirectory
+			else:
+				var file_remove_result = dir.remove(entry_path)
+				if file_remove_result != OK:
+					push_error("Failed to remove file: " + entry_path)
+		entry = dir.get_next()
+	
+	dir.list_dir_end()
+	
+	# Remove the now-empty directory itself
+	var remove_result = dir.remove(path)
+	if remove_result != OK:
+		push_error("Failed to remove directory: " + path)
 
 func rename_file(old_name: String, new_name: String) -> bool:
 	if not _ensure_dir():
