@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 var data = DataManager.new()
 var command = CommandManager.new()
@@ -31,7 +31,7 @@ func _ready() -> void:
 #CONSOLE TEXT SUBMIT#
 #####################
 		
-func _on_line_edit_text_submitted(new_text: String) -> void:
+func _on_command_line_input_text_submitted(new_text: String) -> void:
 	command_line_history.append(new_text)
 	var split = new_text.split(" ")
 	var args: Array

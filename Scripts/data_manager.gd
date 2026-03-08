@@ -5,23 +5,34 @@ const SAVE_DIR := "user://MiniOS"
 
 func get_dirs_in_dir(directory: String) -> Array[String]:
 	var result: Array[String] = []
+
 	var dir := DirAccess.open(directory)
-	
 	if dir == null:
-		push_error("Could not open directory: " + directory)
 		return result
 
 	dir.list_dir_begin()
-	var entry = dir.get_next()
+	var entry := dir.get_next()
 
 	while entry != "":
 		if entry != "." and entry != "..":
 			if dir.current_is_dir():
-				var subdir_path = directory + "/" + entry
-				result.append(subdir_path)               # Add the directory itself
-				result += get_dirs_in_dir(subdir_path)   # Recurse into subdirectory
+				var subdir_path = directory.path_join(entry)
+
+				# Skip problematic Linux virtual filesystems
+				if subdir_path.begins_with("/proc") \
+				or subdir_path.begins_with("/sys") \
+				or subdir_path.begins_with("/dev"):
+					entry = dir.get_next()
+					continue
+
+				result.append(subdir_path)
+
+				# Only recurse if the directory can actually be opened
+				if DirAccess.open(subdir_path) != null:
+					result += get_dirs_in_dir(subdir_path)
+
 		entry = dir.get_next()
-	
+
 	dir.list_dir_end()
 	return result
 
