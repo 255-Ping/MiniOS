@@ -128,6 +128,27 @@ func load_json(filename: String) -> Dictionary:
 		if typeof(data) == TYPE_DICTIONARY:
 			return data
 	return {}
+	
+func save_text_file(path: String, text: String):
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	
+	if file == null:
+		push_error("Could not open file for writing: " + path)
+		return
+	
+	file.store_string(text)
+	file.close()
+	
+func load_text_file(path: String) -> String:
+	var file = FileAccess.open(path, FileAccess.READ)
+	
+	if file == null:
+		push_error("Could not open file: " + path)
+		return ""
+	
+	var text = file.get_as_text()
+	file.close()
+	return text
 
 func delete_file(filename: String) -> bool:
 	var file_path = filename

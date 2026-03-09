@@ -20,7 +20,10 @@ func run_command(command: String, args: Array):
 		mkfile String : Makes a file\n
 		mkdir String : Makes a directory\n
 		dlfile String : Deletes a file\n
-		dldir String : Deletes a directory\n")
+		dldir String : Deletes a directory\n
+		open String : Opens specified file in cd\n
+		open_blank_window : Opens a blank window\n
+		.")
 		
 		"cd":
 			if !args:
@@ -65,6 +68,15 @@ func run_command(command: String, args: Array):
 				return
 			data.delete_dir_recursive(str(execution_directory, "/", args[0]))
 			main.reload_file_manager(execution_directory)
+			
+		"open":
+			if !args:
+				main.log_error("Incorrect arguments")
+				return
+			main.open_text_editor_window(str(execution_directory, "/", args[0]))
+			
+		"open_blank_window":
+			main.open_window()
 			
 		_:
 			main.log_string("Unknown or Unregistered command!")

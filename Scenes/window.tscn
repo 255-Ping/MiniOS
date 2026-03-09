@@ -2,11 +2,16 @@
 
 [ext_resource type="Script" uid="uid://dvblystxg1050" path="res://Scripts/WindowManagement/window.gd" id="1_efths"]
 [ext_resource type="Script" uid="uid://y4yqu75p3x0d" path="res://Scripts/WindowManagement/top_bar.gd" id="2_0xhjo"]
+[ext_resource type="Texture2D" uid="uid://ds1mso45o4l1" path="res://Textures/x_2.png" id="3_gvfsm"]
+[ext_resource type="Texture2D" uid="uid://b70o4cey30rph" path="res://Textures/x_2_pressed.png" id="4_gs3ir"]
+[ext_resource type="Texture2D" uid="uid://c8tk2q2g48k3b" path="res://Textures/x_2_hover.png" id="5_23jqw"]
 
 [node name="Window" type="Control" unique_id=1143205246]
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 3
 anchors_preset = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_efths")
 
 [node name="Panel" type="Panel" parent="." unique_id=1642908986]
@@ -34,3 +39,19 @@ custom_minimum_size = Vector2(290, 28)
 layout_mode = 2
 color = Color(0.06879827, 0.06879828, 0.06879828, 1)
 script = ExtResource("2_0xhjo")
+
+[node name="TextureButton" type="TextureButton" parent="Panel/VBoxContainer/ColorRect" unique_id=1193056713]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.97
+anchor_top = 0.2
+anchor_right = 0.97
+anchor_bottom = 0.2
+offset_left = -16.0
+offset_bottom = 16.0
+grow_horizontal = 0
+texture_normal = ExtResource("3_gvfsm")
+texture_pressed = ExtResource("4_gs3ir")
+texture_hover = ExtResource("5_23jqw")
+
+[connection signal="pressed" from="Panel/VBoxContainer/ColorRect/TextureButton" to="Panel/VBoxContainer/ColorRect" method="_on_texture_button_pressed"]

@@ -8,6 +8,9 @@ var command_line_history: Array
 @onready var file_node = preload("res://Scenes/file.tscn")
 @onready var folder_node = preload("res://Scenes/folder.tscn")
 
+@onready var window_node = preload("res://Scenes/window.tscn")
+
+@onready var desktop = $Desktop
 @onready var command_line_input = $ConsoleBackground/CommandLineInput
 
 #####################
@@ -88,6 +91,24 @@ func reload_file_manager(directory: String):
 		var instance = file_node.instantiate()
 		instance.file_name = files[i]
 		$FileSystemBackground/ScrollContainer/FileContainer.add_child(instance)
+		
+#############
+#OPEN WINDOW#
+#############
+
+func open_window():
+	var instance = window_node.instantiate()
+	instance.global_position = Vector2(1280/2,720/2)
+	desktop.add_child(instance)
+	
+##################
+#OPEN TEXT WINDOW#
+##################
+func open_text_editor_window(file: String):
+	var instance = window_node.instantiate()
+	instance.global_position = Vector2(1280/2,720/2)
+	instance.content = str("text_editor ", file) 
+	desktop.add_child(instance)
 		
 ##################################################
 #OPEN user://MiniOS FOLDER W/ NATIVE FILE MANAGER#
