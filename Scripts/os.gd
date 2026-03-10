@@ -107,7 +107,7 @@ func open_window():
 func open_text_editor_window(file: String):
 	var instance = window_node.instantiate()
 	instance.global_position = Vector2(1280/2,720/2)
-	instance.content = str("text_editor ", file) 
+	instance.content = str("text_editor ", file, " ", file) 
 	desktop.add_child(instance)
 		
 ##################################################

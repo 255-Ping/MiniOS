@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ym3cfuwhdsyx"]
 
-[ext_resource type="Script" uid="uid://b27regd62x5gy" path="res://Scripts/folder_node.gd" id="1_a5ds2"]
+[ext_resource type="Script" uid="uid://b27regd62x5gy" path="res://Scripts/UIManagement/folder_node.gd" id="1_a5ds2"]
 [ext_resource type="Theme" uid="uid://dfe8rqjdehj7x" path="res://UIThemes/standard_ui_theme.tres" id="2_kskap"]
 [ext_resource type="Texture2D" uid="uid://7u4ghny18leh" path="res://Textures/File-Open--Streamline-Ultimate.png" id="3_a5ds2"]
 
